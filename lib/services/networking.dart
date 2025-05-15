@@ -5,20 +5,15 @@ class Networking {
   Networking({required this.url});
   final String url;
 
-  void getData() async {
+  Future getData() async {
     http.Response res = await http.get(Uri.parse(url));
+
     if (res.statusCode == 200) {
       String data = res.body;
-      print(data);
       var decodedData = jsonDecode(data);
-
-      var Longitude = decodedData['coord']['lon'];
-      var weadetails = decodedData['weather'][0]['id'];
-      var cityname = decodedData['name'];
-      print(Longitude);
-      print(weadetails);
-      print(cityname);
+      return decodedData;
     } else
       print(res.statusCode);
+    return ('Error');
   }
 }
